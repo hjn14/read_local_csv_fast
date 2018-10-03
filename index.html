@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>get local csv data</title>
+</head>
+<body>
+    <h1>
+        Open console from your Brower
+    </h1>
+    <script>
+        var request = new XMLHttpRequest();
+        var url= "data.csv"
+        request.open("GET", url, false);
+        request.send(null);
+        var allTextLines = request.responseText.split(/\r\n|\n/);
+        var headers = allTextLines[0].split(',');
+        var lines = [];
+        for (var i=1; i<allTextLines.length; i++) {
+            var data = allTextLines[i].split(',');
+            if (data.length === headers.length) {
+                var line = [];
+                var keyValue = {}
+                for (var j=0; j<headers.length; j++) {
+                    keyValue[headers[j]] = data[j];
+                    line.push(keyValue);
+                }
+                lines.push(line);
+            }
+        }
+        console.log(lines)
+    </script>
+<h3 style="
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;"> hjn14 </h3>
+</body>
+</html>
